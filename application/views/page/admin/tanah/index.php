@@ -1,10 +1,11 @@
 <div class="content-wrapper">
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="grid-margin stretch-card">
         <div class="card">
-
-
             <div class="card-body">
                 <h4 class="card-title"><?= $title ?></h4>
+                <div class="row mb-3 justify-content-end pr-3">
+                    <a href="tanah/add" class="btn btn-primary">Tambah</a>
+                </div>
                 <div class="row justify-content-end">
                     <div class="col-lg-4 col-md-6 col-sm-12 form-group row">
                         <label class="col-sm-3 col-form-label">Search</label>
@@ -13,7 +14,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="table-responsive">
                     <table class="table table-striped" id="data-tanah">
                         <thead>

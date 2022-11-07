@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>public/admin/js/select.dataTables.min.css">
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/select2/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+
+    <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- End plugin css for this page -->
 
     <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/mdi/css/materialdesignicons.min.css">
@@ -103,7 +108,10 @@
     <script src="<?= base_url() ?>public/admin/vendors/chart.js/Chart.min.js"></script>
     <script src="<?= base_url() ?>public/admin/vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="<?= base_url() ?>public/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="<?= base_url() ?>public/admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="<?= base_url() ?>public/admin/js/dataTables.select.min.js"></script>
+    <script src="<?= base_url() ?>public/admin/vendors/select2/select2.min.js"></script>
+
 
     <!-- End plugin js for this page -->
     <!-- inject:js -->

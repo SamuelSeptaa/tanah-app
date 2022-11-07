@@ -24,3 +24,17 @@ function debounce(func, wait, immediate) {
 		if (callNow) func.apply(context, args);
 	};
 }
+
+$(".select2").select2({
+	placeholder: "Pilih Salah Satu",
+});
+
+$(".yearpicker").datepicker({
+	format: "yyyy",
+	minViewMode: "years",
+	autoclose: true, //to close picker once year is selected
+});
+$(".datepicker").datepicker({
+	format: "yyyy-mm-dd",
+	autoclose: true, //to close picker once year is selected
+});

@@ -10,6 +10,7 @@ class Dashboard extends My_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->data['controller']  = strtolower(static::class);
     }
 
     public function index()

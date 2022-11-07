@@ -273,3 +273,12 @@ function getMonthName($month)
             break;
     }
 }
+
+function get_enum_values($table, $field)
+{
+    $_this = &get_instance();
+    $type = $_this->db->query("SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'")->row(0)->Type;
+    preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+    $enum = explode("','", $matches[1]);
+    return $enum;
+}
