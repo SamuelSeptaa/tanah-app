@@ -14,28 +14,21 @@
                 <div class="detail-box">
                     <div class="heading_container">
                         <h2>
-                            About Our Apartment
+                            Tentang Website
                         </h2>
                     </div>
                     <p>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-                        in
-                        some form, by injected humour, or randomised words
+                        Website data kepemilikan tanah dareah pemerintahan kota palangka raya
                     </p>
-                    <a href="">
-                        Read More
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- end about section -->
 
-<!-- location section -->
 <section class="layout_padding-bottom">
-    <div class="container-fluid">
-
+    <div class="container">
+        <div id="map"></div>
     </div>
 </section>
-<!-- end location section -->
+<!-- end about section -->

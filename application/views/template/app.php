@@ -23,9 +23,13 @@
     <link href="<?= base_url() ?>public/app/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="<?= base_url() ?>public/app/css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/mapboxgl/mapbox-gl.css">
 </head>
 
 <body>
+    <div class="lds-circle">
+        <div></div>
+    </div>
     <div class="hero_area">
         <!-- header section strats -->
         <header class="header_section">
@@ -68,12 +72,11 @@
                     <div class="col-md-4 offset-md-1">
                         <div class="detail-box">
                             <h1>
-                                <span> Modern</span> <br>
-                                Apartment <br>
-                                House
+                                <span> Data Tanah</span> <br>
+                                Pemkot Palangka Raya
                             </h1>
                             <p>
-                                It is a long established fact that a reader will be distracted by the readable content of
+                                Website data kepemilikan tanah pemerintah kota palangka raya
                             </p>
                             <div class="btn-box">
                                 <a href="" class="">
@@ -172,9 +175,17 @@
 
     <script type="text/javascript" src="<?= base_url() ?>public/app/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>public/app/js/bootstrap.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>public/admin/vendors/mapboxgl/mapbox-gl.js"></script>
+
+
+    <script>
+        const base_url = `<?= base_url() ?>`;
+    </script>
     <script type="text/javascript" src="<?= base_url() ?>public/app/js/custom.js"></script>
+    <script>
 
-
+    </script>
 </body>
+
 
 </html>
