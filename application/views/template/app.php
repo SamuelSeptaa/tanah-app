@@ -12,7 +12,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Teaser</title>
+    <title>Data Tanah Pemerintah Kota Palangka Raya</title>
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>public/app/css/bootstrap.css" />
@@ -31,9 +31,6 @@
         <header class="header_section">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="<?= base_url() ?>public/app/images/logo.png" alt="" />
-                    </a>
                     <div class="navbar-collapse" id="">
                         <ul class="navbar-nav justify-content-between">
                             <div class="User_option">
@@ -127,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="info_info">
                         <h5>
                             Information
@@ -138,45 +135,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="info_links">
-                        <h5>
-                            Useful Link
-                        </h5>
-                        <ul>
-                            <li>
-                                <a href="">
-                                    There are many
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    variations of
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    passages of
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Lorem Ipsum
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    available, but
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    the i
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="col-md-3">
                     <div class="info_form ">
                         <div class="social_box">
