@@ -1,10 +1,12 @@
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
+
             <div class="card-body">
                 <h4 class="card-title"><?= $title ?></h4>
                 <form class="edit-forms">
                     <div class="row">
+                        <input type="hidden" name="id" value="<?= $page->id ?>">
                         <?php foreach ($forms as $form) :
                             $rowtype = $form[1];
                             $rowname = $form[0];

@@ -31,12 +31,15 @@ class Tanah extends My_Controller
         foreach ($list as $pel) {
             $no++;
             $row = array();
-            $row[]    = '<div class="text-center icons-action"><a href="' . base_url('tanah/detail/' . $pel->id) . '"><i class="mdi mdi-eye"></i></a>
-                            <button class="custom-button" onclick="deleteData(' . $pel->id . ')"><i class="mdi mdi-delete"></i></button>
-                        </div>';
+            $row[] = '
+                    <div class="btn-group">
+                        <a class="btn btn-primary icons-action" href="' . base_url('tanah/detail/' . $pel->id) . '"><i class="mdi mdi-eye"></i></a>
+                        <button type="button" class="btn btn-danger icons-action" onclick="deleteData(' . $pel->id . ')"><i class="mdi mdi-delete"></i></button>
+                    </div>          
+            ';
             $row[] = $pel->nama;
-            $row[] = $pel->alamat;
-            $row[] = $pel->ukuran;
+            $row[] = '<div><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=' . $pel->latitude . ',' . $pel->longitude . '">' . $pel->alamat . '<i class="mdi mdi-arrow-top-right"></i></a></div>';
+            $row[] = "$pel->ukuran m<sup>2</sup>";
             $row[] = $pel->tahun_perolehan;
             $row[] = $pel->nomor;
             $row[] = $pel->nib;
@@ -243,6 +246,28 @@ class Tanah extends My_Controller
             'message'   => [
                 'title' => 'Berhasil',
                 'body'  => 'Berhasil menghapus data'
+            ]
+        ]);
+    }
+
+    public function ajaxEdit()
+    {
+        $error = $this->_runValidation();
+        if ($error) {
+            return $this->responseJSON(400, [
+                'message' => 'Failed',
+                'data' => $error
+            ]);
+        }
+
+        $data = $this->input->post();
+        $this->tanah->update($data, $data['id']);
+
+        return $this->responseJSON(200, [
+            'status' => 'Success',
+            'message'   => [
+                'title' => 'Berhasil',
+                'body'  => 'Berhasil mengubah data'
             ]
         ]);
     }

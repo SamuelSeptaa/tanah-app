@@ -30632,10 +30632,8 @@ div.tagsinput span.tag a {
   }
 }
 
-.icons-action i{
-    font-size: 20px;
-    width: 40px;
-    color: #4B49AC;
+.icons-action{
+    font-size: 25px;
 }
 .text-wrap{
   white-space:normal;

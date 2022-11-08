@@ -57,7 +57,6 @@ $(document).ready(function (e) {
 						confirmButtonColor: "#3ab50d",
 						icon: "success",
 						title: `${response.message.title}`,
-						text: `${response.message.body}`,
 					}).then((result) => {
 						document.location.href = base_url + "tanah";
 					});

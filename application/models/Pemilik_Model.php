@@ -24,4 +24,17 @@ class Pemilik_Model extends CI_Model
             return $query->row();
         return $query->result();
     }
+
+    public function create($data)
+    {
+        $this->db->insert('pemilik', $data);
+        return $this->db->insert_id();
+    }
+
+    public function update($data, $id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('pemilik', $data);
+        return $this->db->insert_id();
+    }
 }

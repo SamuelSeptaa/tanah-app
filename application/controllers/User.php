@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pemilik extends My_Controller
+class User extends My_Controller
 {
 
     public $template = "admin";
@@ -16,14 +16,14 @@ class Pemilik extends My_Controller
 
     public function index()
     {
-        $this->data['title']    = "Data Pemilik Tanah";
-        $this->data['script']    = "page/admin/pemilik/index.js";
-        $this->renderTo("page/admin/pemilik/index");
+        $this->data['title']    = "Data User";
+        $this->data['script']    = "page/admin/user/index.js";
+        $this->renderTo("page/admin/user/index");
     }
     public function datatable()
     {
-        $this->load->model('Dt_table/Pemilik_M', 'dt_pemilik');
-        $list = $this->dt_pemilik->get_datatables();
+        $this->load->model('Dt_table/User_M', 'dt_user');
+        $list = $this->dt_user->get_datatables();
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $pel) {
@@ -31,19 +31,19 @@ class Pemilik extends My_Controller
             $row = array();
             $row[] = '
                     <div class="btn-group">
-                        <a class="btn btn-primary icons-action" href="' . base_url('pemilik/detail/' . $pel->id) . '"><i class="mdi mdi-eye"></i></a>
+                        <a class="btn btn-primary icons-action" href="' . base_url('user/detail/' . $pel->id) . '"><i class="mdi mdi-eye"></i></a>
                         <button type="button" class="btn btn-danger icons-action" onclick="deleteData(' . $pel->id . ')"><i class="mdi mdi-delete"></i></button>
                     </div>          
             ';
-            $row[] = $pel->nama;
-            $row[] = $pel->total_tanah;
+            $row[] = $pel->real_name;
+            $row[] = $pel->email;
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->dt_pemilik->count_all(),
-            "recordsFiltered" => $this->dt_pemilik->count_filtered(),
+            "recordsTotal" => $this->dt_user->count_all(),
+            "recordsFiltered" => $this->dt_user->count_filtered(),
             "data" => $data,
         );
         //output to json format

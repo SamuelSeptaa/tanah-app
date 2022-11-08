@@ -1,24 +1,18 @@
 $(document).ready(function (e) {
-	var table = $("#data-tanah").DataTable({
+	var table = $("#data-pemilik").DataTable({
 		pageLength: 30,
 		scrollX: true,
 		processing: true,
 		serverSide: true,
 		order: [],
 		ajax: {
-			url: `${base_url}tanah/datatable`,
+			url: `${base_url}pemilik/datatable`,
 			type: "POST",
 		},
 		columnDefs: [
 			{
-				targets: [0, 5, 7, 9],
+				targets: [0],
 				orderable: false,
-			},
-			{
-				render: function (data, type, full, meta) {
-					return "<div class='text-wrap width-300'>" + data + "</div>";
-				},
-				targets: 9,
 			},
 		],
 		dom: "rtip",
@@ -43,7 +37,7 @@ $(document).ready(function (e) {
 function deleteData(id) {
 	Swal.fire({
 		icon: "question",
-		title: "Hapus data tanah yang dipilih?",
+		title: "Hapus pemilik yang dipilih?",
 		showCancelButton: true,
 		cancelButtonText: "Batal",
 		confirmButtonText: "Hapus",
@@ -54,7 +48,7 @@ function deleteData(id) {
 			$.ajax({
 				type: "post",
 				dataType: "json",
-				url: base_url + "tanah/ajaxDelete",
+				url: base_url + "pemilik/ajaxDelete",
 				data: {
 					id: id,
 				},
@@ -70,7 +64,7 @@ function deleteData(id) {
 						icon: "success",
 						title: `${response.message.title}`,
 					}).then((result) => {
-						$("#data-tanah").DataTable().ajax.reload();
+						$("#data-pemilik").DataTable().ajax.reload();
 					});
 				},
 				error: function (request, status, error) {
