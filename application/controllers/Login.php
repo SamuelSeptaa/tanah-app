@@ -75,4 +75,12 @@ class Login extends My_Controller
         $userData[$prefix . "email"]        = $user->email;
         $this->session->set_userdata($userData);
     }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        $this->load->helper('cookie');
+        delete_cookie('user-cookie');
+        redirect('/');
+    }
 }

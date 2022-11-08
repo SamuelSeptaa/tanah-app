@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = TRUE;
 
 
 $route['sign-in'] = 'login/sign-in';
+$route['logout'] = 'login/logout';

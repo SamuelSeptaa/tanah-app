@@ -4,7 +4,7 @@ $(document).ready(function (e) {
 		const formData = new FormData(this);
 		$.ajax({
 			type: "post",
-			url: base_url + "pemilik/ajaxAdd",
+			url: base_url + "user/ajaxAdd",
 			data: formData,
 			contentType: false,
 			processData: false,
@@ -20,7 +20,7 @@ $(document).ready(function (e) {
 					icon: "success",
 					title: `${response.message.title}`,
 				}).then((result) => {
-					document.location.href = base_url + "pemilik";
+					document.location.href = base_url + "user";
 				});
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

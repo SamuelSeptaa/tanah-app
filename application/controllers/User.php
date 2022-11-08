@@ -10,7 +10,7 @@ class User extends My_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Pemilik_Model', 'pemilik');
+        $this->load->model('Account_model', 'account');
         $this->data['controller']  = strtolower(static::class);
     }
 
@@ -52,23 +52,28 @@ class User extends My_Controller
 
     public function add()
     {
-        $this->data['title']    = "Tambah Data Pemilik";
-        $this->data['script']    = "page/admin/pemilik/add.js";
+        $this->data['title']    = "Tambah Data User";
+        $this->data['script']    = "page/admin/user/add.js";
 
         $forms = [
-            array('nama', 'text'),
+            array('real_name', 'text'),
+            array('email', 'text'),
+            array('password', 'password'),
+            array('password_confirm', 'password'),
         ];
         $this->data['forms'] = $forms;
         $this->renderTo("page/admin/add");
     }
 
-    private function _runValidation()
+    private function _runValidation($is_update = false)
     {
         $errors = FALSE;
         $this->config->set_item('language', 'indonesian');
 
-        $this->form_validation->set_rules('nama', 'Nama Pemilik', 'required|max_length[255]');
-
+        $this->form_validation->set_rules('real_name', 'Nama Asli', 'required|max_length[255]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[255]');
+        $this->form_validation->set_rules('password', 'Password', 'min_length[5]' . (!$is_update ? '|required' : ''));
+        $this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'min_length[5]|matches[password]' . (!$is_update ? '|required' : ''));
         if ($this->form_validation->run() == FALSE) {
             $errors = [];
             foreach ($this->input->post() as $field => $value) {
@@ -94,8 +99,10 @@ class User extends My_Controller
         }
 
         $data = $this->input->post();
-        $this->pemilik->create($data);
+        $data['password']   = hashpassword($data['password_confirm']);
+        unset($data['password_confirm']);
 
+        $this->account->create($data);
         return $this->responseJSON(200, [
             'status' => 'Success',
             'message'   => [
@@ -104,17 +111,22 @@ class User extends My_Controller
             ]
         ]);
     }
+
+
     public function detail($id)
     {
-        $this->data['title']    = "Detail Data Pemilik";
-        $this->data['script']    = "page/admin/pemilik/detail.js";
+        $this->data['title']    = "Detail Data User";
+        $this->data['script']    = "page/admin/user/detail.js";
 
-        $detail = $this->pemilik->get(null, ['id' => $id], 1);
+        $detail = $this->account->get(null, ['id' => $id], 1);
 
         if (!$detail)
             redirect('my404', 'refresh');
         $forms = [
-            array('nama', 'text')
+            array('real_name', 'text'),
+            array('email', 'text'),
+            array('password', 'password'),
+            array('password_confirm', 'password'),
         ];
 
         $this->data['forms'] = $forms;
@@ -124,16 +136,17 @@ class User extends My_Controller
 
     public function ajaxEdit()
     {
-        $error = $this->_runValidation();
+        $error = $this->_runValidation($is_update = true);
         if ($error) {
             return $this->responseJSON(400, [
                 'message' => 'Failed',
                 'data' => $error
             ]);
         }
-
         $data = $this->input->post();
-        $this->pemilik->update($data, $data['id']);
+        $data['password']   = hashpassword($data['password_confirm']);
+        unset($data['password_confirm']);
+        $this->account->updateuserByID($data, $data['id']);
 
         return $this->responseJSON(200, [
             'status' => 'Success',
@@ -147,7 +160,15 @@ class User extends My_Controller
     public function ajaxDelete()
     {
         $id = $this->input->post('id');
-        $this->db->delete('pemilik', ['id' => $id]);
+        if ($id == 1)
+            return $this->responseJSON(403, [
+                'status' => 'Failed',
+                'message'   => [
+                    'title' => 'Failed',
+                    'body'  => 'Forbidden'
+                ]
+            ]);
+        $this->db->delete('user', ['id' => $id]);
 
         return $this->responseJSON(200, [
             'status' => 'Success',

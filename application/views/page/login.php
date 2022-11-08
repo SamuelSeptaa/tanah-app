@@ -105,7 +105,7 @@
                     $(".alert-danger").hide();
                 },
                 success: function(response) {
-                    hideLoading();
+                    location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     hideLoading();

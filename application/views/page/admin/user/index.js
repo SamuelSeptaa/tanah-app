@@ -1,12 +1,12 @@
 $(document).ready(function (e) {
-	var table = $("#data-pemilik").DataTable({
+	var table = $("#data-user").DataTable({
 		pageLength: 30,
 		scrollX: true,
 		processing: true,
 		serverSide: true,
 		order: [],
 		ajax: {
-			url: `${base_url}pemilik/datatable`,
+			url: `${base_url}user/datatable`,
 			type: "POST",
 		},
 		columnDefs: [
@@ -37,7 +37,7 @@ $(document).ready(function (e) {
 function deleteData(id) {
 	Swal.fire({
 		icon: "question",
-		title: "Hapus pemilik yang dipilih?",
+		title: "Hapus user yang dipilih?",
 		showCancelButton: true,
 		cancelButtonText: "Batal",
 		confirmButtonText: "Hapus",
@@ -48,7 +48,7 @@ function deleteData(id) {
 			$.ajax({
 				type: "post",
 				dataType: "json",
-				url: base_url + "pemilik/ajaxDelete",
+				url: base_url + "user/ajaxDelete",
 				data: {
 					id: id,
 				},
@@ -64,7 +64,7 @@ function deleteData(id) {
 						icon: "success",
 						title: `${response.message.title}`,
 					}).then((result) => {
-						$("#data-pemilik").DataTable().ajax.reload();
+						$("#data-user").DataTable().ajax.reload();
 					});
 				},
 				error: function (request, status, error) {

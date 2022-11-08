@@ -85,11 +85,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="<?= $rowname ?>"><?= $label ?></label>
-                                        <input type="password" class="form-control" id="<?= $rowname ?>" name="<?= $rowname ?>" value="<?= $page->$rowname ?>" placeholder="<?= $placeholder ?>">
+                                        <input type="password" class="form-control" id="<?= $rowname ?>" name="<?= $rowname ?>" value="" placeholder="<?= $placeholder ?>">
                                         <div class="invalid-feedback" for="<?= $rowname ?>"></div>
                                     </div>
                                 </div>
-
                             <?php
                             elseif ($rowtype == 'location') :
                             ?>
