@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
 
     <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/mapboxgl/mapbox-gl.css">
     <!-- End plugin css for this page -->
 
     <link rel="stylesheet" href="<?= base_url() ?>public/admin/vendors/mdi/css/materialdesignicons.min.css">
@@ -120,6 +121,8 @@
     <script src="<?= base_url() ?>public/admin/js/template.js"></script>
     <script src="<?= base_url() ?>public/admin/js/settings.js"></script>
     <script src="<?= base_url() ?>public/admin/js/todolist.js"></script>
+    <script src="<?= base_url() ?>public/admin/vendors/mapboxgl/mapbox-gl.js"></script>
+    <script src="<?= base_url() ?>public/admin/vendors/sweetalert/sweetalert.all.min.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="<?= base_url() ?>public/admin/js/dashboard.js"></script>

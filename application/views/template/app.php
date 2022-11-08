@@ -32,10 +32,10 @@
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container">
                     <a class="navbar-brand" href="index.html">
-                        <img src="images/logo.png" alt="" />
+                        <img src="<?= base_url() ?>public/app/images/logo.png" alt="" />
                     </a>
                     <div class="navbar-collapse" id="">
-                        <ul class="navbar-nav justify-content-between ">
+                        <ul class="navbar-nav justify-content-between">
                             <div class="User_option">
                                 <li class="">
                                     <a class="mr-4" href="login">
@@ -44,6 +44,21 @@
                                 </li>
                             </div>
                         </ul>
+                        <div class="custom_menu-btn">
+                            <button onclick="openNav()">
+                                <span class="s-1">
+                                </span>
+                                <span class="s-2">
+                                </span>
+                                <span class="s-3">
+                                </span>
+                            </button>
+                        </div>
+                        <div id="myNav" class="overlay">
+                            <div class="overlay-content">
+                                <a href="login">Login</a>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -88,7 +103,7 @@
                         </h5>
                         <div>
                             <div class="img-box">
-                                <img src="images/location.png" width="18px" alt="">
+                                <img src="<?= base_url() ?>public/app/images/location.png" width="18px" alt="">
                             </div>
                             <p>
                                 Address
@@ -96,7 +111,7 @@
                         </div>
                         <div>
                             <div class="img-box">
-                                <img src="images/phone.png" width="12px" alt="">
+                                <img src="<?= base_url() ?>public/app/images/phone.png" width="12px" alt="">
                             </div>
                             <p>
                                 +01 1234567890
@@ -104,7 +119,7 @@
                         </div>
                         <div>
                             <div class="img-box">
-                                <img src="images/mail.png" width="18px" alt="">
+                                <img src="<?= base_url() ?>public/app/images/mail.png" width="18px" alt="">
                             </div>
                             <p>
                                 demo@gmail.com
@@ -166,16 +181,16 @@
                     <div class="info_form ">
                         <div class="social_box">
                             <a href="">
-                                <img src="images/fb.png" alt="">
+                                <img src="<?= base_url() ?>public/app/images/fb.png" alt="">
                             </a>
                             <a href="">
-                                <img src="images/twitter.png" alt="">
+                                <img src="<?= base_url() ?>public/app/images/twitter.png" alt="">
                             </a>
                             <a href="">
-                                <img src="images/linkedin.png" alt="">
+                                <img src="<?= base_url() ?>public/app/images/linkedin.png" alt="">
                             </a>
                             <a href="">
-                                <img src="images/youtube.png" alt="">
+                                <img src="<?= base_url() ?>public/app/images/youtube.png" alt="">
                             </a>
                         </div>
                     </div>

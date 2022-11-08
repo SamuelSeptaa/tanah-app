@@ -4,7 +4,9 @@
   .User_option {
     display: none;
   }
-
+  .custom_menu-btn{
+    display: block;
+  }
   .sale_section .sale_container .box {
     -ms-flex-preferred-size: 48%;
     flex-basis: 48%;
