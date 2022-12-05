@@ -41,11 +41,12 @@ class Account_model extends CI_Model
 				'first_failed_login' => $now,
 				'failed_login_count' => $isExist->failed_login_count + 1,
 			], ['email' => $data['email']]);
+			$failedLoginCount = $isExist->failed_login_count + 1;
 			return [
 				'status'	=> false,
 				'message'	=> [
 					'title'	=> 'Failed',
-					'body'		=> "Email and password didnt match! Failed login counts: " . $isExist->failed_login_count + 1
+					'body'		=> "Email and password didnt match! Failed login counts: $failedLoginCount"
 				]
 			];
 		}
