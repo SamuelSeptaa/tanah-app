@@ -91,13 +91,27 @@
                             <?php
                             elseif ($rowtype == 'location') :
                             ?>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="latitude">Latitudes</label>
+                                            <input type="text" class="form-control" id="latitudes" name="latitude" placeholder="Latitudes">
+                                            <div class="invalid-feedback" for="latitude"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="longitude">Longitudes</label>
+                                            <input type="text" class="form-control" id="longitudes" name="longitude" placeholder="Longitudes">
+                                            <div class="invalid-feedback" for="longitude"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="<?= $rowname ?>"><?= $label ?></label>
                                         <div id="map"></div>
                                     </div>
-                                    <input type="hidden" name="longitude" id="longitudes">
-                                    <input type="hidden" name="latitude" id="latitudes">
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>

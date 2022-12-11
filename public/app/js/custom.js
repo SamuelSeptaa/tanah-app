@@ -19,142 +19,164 @@ function hideLoading() {
 	$(".lds-circle").hide();
 }
 
-function LoadData() {
-	return new Promise((resolve, reject) => {
-		$.ajax({
-			type: "post",
-			url: `${base_url}index/koordinat`,
-			processData: true,
-			beforeSend: function () {
-				showLoading();
-			},
-			success: function (response) {
-				const geojson = response.data.geojson;
-				resolve(geojson);
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-				resolve("Get Data Is Failed!");
-			},
-		});
-	});
-}
-
-function clusterTheMap(geojson) {
-	return new Promise((resolve, reject) => {
-		mapboxgl.accessToken =
-			"pk.eyJ1Ijoic2FtdWVsc2VwdGEiLCJhIjoiY2t6czJvYTkwMzliODJ1cGFhaThpMGs4NCJ9.OsDTB6dWDaNla3EJTNpThQ";
-		const map = new mapboxgl.Map({
-			container: "map",
-			style: "mapbox://styles/mapbox/satellite-streets-v11",
-			center: [113.9108, -2.2136],
-			zoom: 12,
-		});
-		map.addControl(
-			new mapboxgl.GeolocateControl({
-				positionOptions: {
-					enableHighAccuracy: true,
+$(document).ready(function (e) {
+	let tipe_status = null;
+	function LoadData() {
+		return new Promise((resolve, reject) => {
+			$.ajax({
+				type: "post",
+				url: `${base_url}index/koordinat`,
+				data: {
+					tipe_status: tipe_status,
 				},
-				trackUserLocation: true,
-				showUserHeading: true,
-			})
-		);
-		map.addControl(new mapboxgl.NavigationControl());
-		map.on("load", () => {
-			map.loadImage(
-				`${base_url}public/app/images/marker.png`,
-				(error, image) => {
-					if (error) throw error;
-					map.addImage("custom-marker", image);
-				}
+				processData: true,
+				beforeSend: function () {
+					showLoading();
+				},
+				success: function (response) {
+					const geojson = response.data.geojson;
+					resolve(geojson);
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					resolve("Get Data Is Failed!");
+				},
+			});
+		});
+	}
+
+	function clusterTheMap(geojson) {
+		return new Promise((resolve, reject) => {
+			mapboxgl.accessToken =
+				"pk.eyJ1Ijoic2FtdWVsc2VwdGEiLCJhIjoiY2t6czJvYTkwMzliODJ1cGFhaThpMGs4NCJ9.OsDTB6dWDaNla3EJTNpThQ";
+			const map = new mapboxgl.Map({
+				container: "map",
+				style: "mapbox://styles/mapbox/satellite-streets-v11",
+				center: [113.9108, -2.2136],
+				zoom: 12,
+			});
+			map.addControl(
+				new mapboxgl.GeolocateControl({
+					positionOptions: {
+						enableHighAccuracy: true,
+					},
+					trackUserLocation: true,
+					showUserHeading: true,
+				})
 			);
+			map.addControl(new mapboxgl.NavigationControl());
+			map.on("load", () => {
+				map.loadImage(
+					`${base_url}public/app/images/marker.png`,
+					(error, image) => {
+						if (error) throw error;
+						map.addImage("custom-marker", image);
+					}
+				);
 
-			map.addSource("clustering_coords", {
-				type: "geojson",
-				data: geojson,
-				cluster: true,
-				clusterMaxZoom: 14, // Max zoom to cluster points on
-				clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-			});
-			map.addLayer({
-				id: "clusters",
-				type: "circle",
-				source: "clustering_coords",
-				filter: ["has", "point_count"],
-				paint: {
-					"circle-color": [
-						"step",
-						["get", "point_count"],
-						"#51bbd6",
-						100,
-						"#f1f075",
-						750,
-						"#f28cb1",
-					],
-					"circle-radius": [
-						"step",
-						["get", "point_count"],
-						20,
-						100,
-						30,
-						750,
-						40,
-					],
-				},
-			});
+				// if (map.getLayer("clusters")) {
+				// 	map.removeLayer("clusters");
+				// }
 
-			map.addLayer({
-				id: "cluster-count",
-				type: "symbol",
-				source: "clustering_coords",
-				filter: ["has", "point_count"],
-				layout: {
-					"text-field": "{point_count_abbreviated}",
-					"text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-					"text-size": 12,
-				},
-			});
+				// if (map.getLayer("cluster-count")) {
+				// 	map.removeLayer("cluster-count");
+				// }
 
-			map.addLayer({
-				id: "unclustered-point",
-				type: "symbol",
-				source: "clustering_coords",
-				filter: ["!", ["has", "point_count"]],
-				layout: {
-					"icon-anchor": "bottom",
-					"icon-image": "custom-marker",
-				},
-			});
+				// if (map.getLayer("unclustered-point")) {
+				// 	map.removeLayer("unclustered-point");
+				// }
 
-			// zoom/inspect cluster on click
-			map.on("click", "clusters", (e) => {
-				const features = map.queryRenderedFeatures(e.point, {
-					layers: ["clusters"],
+				// if (map.getSource("clustering_coords")) {
+				// 	map.removeSource("clustering_coords");
+				// }
+
+				map.addSource("clustering_coords", {
+					type: "geojson",
+					data: geojson,
+					cluster: true,
+					clusterMaxZoom: 14, // Max zoom to cluster points on
+					clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
 				});
-				const clusterId = features[0].properties.cluster_id;
-				map
-					.getSource("clustering_coords")
-					.getClusterExpansionZoom(clusterId, (err, zoom) => {
-						if (err) return;
+				map.addLayer({
+					id: "clusters",
+					type: "circle",
+					source: "clustering_coords",
+					filter: ["has", "point_count"],
+					paint: {
+						"circle-color": [
+							"step",
+							["get", "point_count"],
+							"#51bbd6",
+							100,
+							"#f1f075",
+							750,
+							"#f28cb1",
+						],
+						"circle-radius": [
+							"step",
+							["get", "point_count"],
+							20,
+							100,
+							30,
+							750,
+							40,
+						],
+					},
+				});
 
-						map.easeTo({
-							center: features[0].geometry.coordinates,
-							zoom: zoom,
-						});
+				map.addLayer({
+					id: "cluster-count",
+					type: "symbol",
+					source: "clustering_coords",
+					filter: ["has", "point_count"],
+					layout: {
+						"text-field": "{point_count_abbreviated}",
+						"text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+						"text-size": 12,
+					},
+				});
+
+				map.addLayer({
+					id: "unclustered-point",
+					type: "symbol",
+					source: "clustering_coords",
+					filter: ["!", ["has", "point_count"]],
+					layout: {
+						"icon-anchor": "bottom",
+						"icon-image": "custom-marker",
+					},
+				});
+
+				// zoom/inspect cluster on click
+				map.on("click", "clusters", (e) => {
+					const features = map.queryRenderedFeatures(e.point, {
+						layers: ["clusters"],
 					});
-			});
+					const clusterId = features[0].properties.cluster_id;
+					map
+						.getSource("clustering_coords")
+						.getClusterExpansionZoom(clusterId, (err, zoom) => {
+							if (err) return;
 
-			// description HTML from its properties.
-			map.on("click", "unclustered-point", (e) => {
-				const coordinates = e.features[0].geometry.coordinates.slice();
-				const nama = e.features[0].properties.nama;
-				const ukuran = e.features[0].properties.ukuran;
-				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-				}
-				new mapboxgl.Popup()
-					.setLngLat(coordinates)
-					.setHTML(
-						`<table>
+							map.easeTo({
+								center: features[0].geometry.coordinates,
+								zoom: zoom,
+							});
+						});
+				});
+
+				// description HTML from its properties.
+				map.on("click", "unclustered-point", (e) => {
+					const coordinates = e.features[0].geometry.coordinates.slice();
+					const nama = e.features[0].properties.nama;
+					const ukuran = e.features[0].properties.ukuran;
+					const status_type = e.features[0].properties.status_type;
+					while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+						coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+					}
+					new mapboxgl.Popup()
+						.setLngLat(coordinates)
+						.setHTML(
+							`<table>
 						<tr>
 							<td>Ukuran</td>
 							<td>:${ukuran}m<sup>2</sup></td>
@@ -163,30 +185,44 @@ function clusterTheMap(geojson) {
 							<td>Pemilik</td>
 							<td>:${nama}</td>
 						</tr>
+						<tr>
+							<td>Status</td>
+							<td>:${status_type}</td>
+						</tr>
 				  		</table>`
-					)
-					.addTo(map);
+						)
+						.addTo(map);
+				});
+
+				map.on("mouseenter", "clusters", () => {
+					map.getCanvas().style.cursor = "pointer";
+				});
+				map.on("mouseleave", "clusters", () => {
+					map.getCanvas().style.cursor = "";
+				});
 			});
 
-			map.on("mouseenter", "clusters", () => {
-				map.getCanvas().style.cursor = "pointer";
-			});
-			map.on("mouseleave", "clusters", () => {
-				map.getCanvas().style.cursor = "";
-			});
+			resolve("Clusterin is done");
 		});
+	}
 
-		resolve("Clusterin is done");
+	function loadMapWithData() {
+		LoadData()
+			.then((geojson) => {
+				return clusterTheMap(geojson);
+			})
+			.then((value) => {
+				hideLoading();
+			});
+	}
+	loadMapWithData();
+
+	$(".btn-filter").click(function (e) {
+		e.preventDefault();
+		tipe_status = $(this).data("status");
+		$(".btn-filter").removeClass("active");
+		$(`button[data-status="${tipe_status}"]`).addClass("active");
+
+		loadMapWithData();
 	});
-}
-
-function loadMapWithData() {
-	LoadData()
-		.then((geojson) => {
-			return clusterTheMap(geojson);
-		})
-		.then((value) => {
-			hideLoading();
-		});
-}
-loadMapWithData();
+});

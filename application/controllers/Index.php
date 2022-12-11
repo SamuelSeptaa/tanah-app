@@ -33,7 +33,13 @@ class Index extends My_Controller
 
 	public function koordinat()
 	{
-		$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'ukuran']);
+
+		$status = $this->input->post('tipe_status');
+
+		if ($status && $status != 'ALL')
+			$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'ukuran', 'status as status_type'], ['status' => $status]);
+		else
+			$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'ukuran', 'status as status_type']);
 
 		$location = array_map(function ($data) {
 			return [
@@ -42,7 +48,8 @@ class Index extends My_Controller
 				],
 				'properties'	=> [
 					'nama'			=> $data->nama,
-					'ukuran'		=> $data->ukuran
+					'ukuran'		=> $data->ukuran,
+					'status_type'		=> $data->status_type,
 				]
 			];
 		}, $location);

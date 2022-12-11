@@ -28,6 +28,12 @@
 
 <section class="layout_padding-bottom">
     <div class="container">
+        <div class="d-flex mb-3">
+            <div class="col-form-label mr-3">Filter Status :</div>
+            <button type="button" class="btn btn-outline-info mr-1 my-1 btn-sm btn-filter" data-status="ALL">Semua</button>
+            <button type="button" class="btn btn-outline-info mr-1 my-1 btn-sm btn-filter" data-status="Fasos">Fasos</button>
+            <button type="button" class="btn btn-outline-info mr-1 my-1 btn-sm btn-filter" data-status="Fasum">Fasum</button>
+        </div>
         <div id="map"></div>
     </div>
 </section>
