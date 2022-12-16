@@ -19,6 +19,14 @@ function hideLoading() {
 	$(".lds-circle").hide();
 }
 
+const rupiah = (number) => {
+	return new Intl.NumberFormat("id-ID", {
+		minimumFractionDigits: 0,
+		style: "currency",
+		currency: "IDR",
+	}).format(number);
+};
+
 $(document).ready(function (e) {
 	let tipe_status = null;
 	function LoadData() {
@@ -168,7 +176,9 @@ $(document).ready(function (e) {
 				map.on("click", "unclustered-point", (e) => {
 					const coordinates = e.features[0].geometry.coordinates.slice();
 					const nama = e.features[0].properties.nama;
-					const ukuran = e.features[0].properties.ukuran;
+					const panjang = e.features[0].properties.panjang;
+					const lebar = e.features[0].properties.lebar;
+					const anggaran = e.features[0].properties.anggaran;
 					const status_type = e.features[0].properties.status_type;
 					while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 						coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -178,12 +188,20 @@ $(document).ready(function (e) {
 						.setHTML(
 							`<table>
 						<tr>
-							<td>Ukuran</td>
-							<td>:${ukuran}m<sup>2</sup></td>
+							<td>Panjang</td>
+							<td>:${panjang}m</td>
+						</tr>
+						<tr>
+							<td>Panjang</td>
+							<td>:${lebar}m</td>
 						</tr>
 						<tr>
 							<td>Pemilik</td>
 							<td>:${nama}</td>
+						</tr>
+						<tr>
+							<td>Anggaran</td>
+							<td>:${rupiah(anggaran)}</td>
 						</tr>
 						<tr>
 							<td>Status</td>

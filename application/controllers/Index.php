@@ -37,9 +37,9 @@ class Index extends My_Controller
 		$status = $this->input->post('tipe_status');
 
 		if ($status && $status != 'ALL')
-			$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'ukuran', 'status as status_type'], ['status' => $status]);
+			$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'panjang', 'lebar', 'anggaran', 'status as status_type'], ['status' => $status]);
 		else
-			$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'ukuran', 'status as status_type']);
+			$location = $this->tanah->get(['latitude', 'longitude', 'nama', 'panjang', 'lebar', 'anggaran', 'status as status_type']);
 
 		$location = array_map(function ($data) {
 			return [
@@ -48,8 +48,10 @@ class Index extends My_Controller
 				],
 				'properties'	=> [
 					'nama'			=> $data->nama,
-					'ukuran'		=> $data->ukuran,
-					'status_type'		=> $data->status_type,
+					'panjang'		=> $data->panjang,
+					'lebar'			=> $data->lebar,
+					'anggaran'		=> $data->anggaran,
+					'status_type'	=> $data->status_type,
 				]
 			];
 		}, $location);

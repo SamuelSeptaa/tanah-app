@@ -29,6 +29,7 @@ class Tanah extends My_Controller
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $pel) {
+            $luas = $pel->panjang * $pel->lebar;
             $no++;
             $row = array();
             $row[] = '
@@ -39,7 +40,7 @@ class Tanah extends My_Controller
             ';
             $row[] = $pel->nama;
             $row[] = '<div><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=' . $pel->latitude . ',' . $pel->longitude . '">' . $pel->alamat . '<i class="mdi mdi-arrow-top-right"></i></a></div>';
-            $row[] = "$pel->ukuran m<sup>2</sup>";
+            $row[] = "$pel->panjang x $pel->lebar = $luas m<sup>2</sup>";
             $row[] = $pel->tahun_perolehan;
             $row[] = $pel->nomor;
             $row[] = $pel->nib;
@@ -96,7 +97,8 @@ class Tanah extends My_Controller
         $forms = [
             array('pemilik_id', 'select', $pemilik),
             array('alamat', 'textarea'),
-            array('ukuran', 'number'),
+            array('panjang', 'number'),
+            array('lebar', 'number'),
             array('tahun_perolehan', 'year'),
             array('hak', 'select', $hak),
             array('tanggal', 'date'),
@@ -155,7 +157,8 @@ class Tanah extends My_Controller
         $forms = [
             array('pemilik_id', 'select', $pemilik),
             array('alamat', 'textarea'),
-            array('ukuran', 'number'),
+            array('panjang', 'number'),
+            array('lebar', 'number'),
             array('tahun_perolehan', 'year'),
             array('hak', 'select', $hak),
             array('tanggal', 'date'),
@@ -184,7 +187,8 @@ class Tanah extends My_Controller
 
         $this->form_validation->set_rules('pemilik_id', 'Pemilik', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-        $this->form_validation->set_rules('ukuran', 'Ukuran', 'required|is_natural');
+        $this->form_validation->set_rules('panjang', 'Panjang', 'required|is_natural');
+        $this->form_validation->set_rules('lebar', 'Lebar', 'required|is_natural');
         $this->form_validation->set_rules('tahun_perolehan', 'Tahun Perolehan', 'required|exact_length[4]');
         $this->form_validation->set_rules('hak', 'Hak', 'required');
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
